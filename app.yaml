@@ -5,10 +5,10 @@ type: app
 # ------------------------------------------------------------------------------
 # Basic Information
 # ------------------------------------------------------------------------------
-name: hello-app
-title: Hello App
-description: This is a hello app for demonstration purposes.
-version: 1.0.0
+name: speed-multiplier
+title: Mill Speed Multiplier
+description: This is an example mill speed multiplier for demonstration purposes.
+version: 1.0.3
 
 # ------------------------------------------------------------------------------
 # Application Capabilities
@@ -17,7 +17,7 @@ flags:
   enable_runtime_update:
     configuration: false # Reload application configuration at runtime (without restart).
     parameters: true # Reload application parameters at runtime (without restart).
-    resources: false # Deploy new assets at runtime (restart required).
+    resources: true # Deploy new assets at runtime (restart required).
     resource_properties: true # Reload asset properties at runtime (without restart).
 
 # ------------------------------------------------------------------------------
@@ -25,21 +25,19 @@ flags:
 # ------------------------------------------------------------------------------
 data_streams:
   inputs: # Application consumes motor temperature and speed data.
-    - name: motor_temperature
-      data_type: number
-    - name: motor_speed
+    - name: mill_speed
       data_type: number
 
-  outputs: []
+  outputs:
+    - name: output
+      data_type: number
 
 # ------------------------------------------------------------------------------
 # Control Changes Definitions
 # ------------------------------------------------------------------------------
 control_changes:
   inputs: []
-  outputs:
-    - name: motor_speed_set_point # Control output for setting motor speed.
-      data_type: number
+  outputs: []
 
 # ------------------------------------------------------------------------------
 # Custom Actions Definitions
@@ -52,9 +50,7 @@ custom_actions:
 # Application-Asset Parameters Definitions
 # ------------------------------------------------------------------------------
 parameters:
-  - name: kelvin_closed_loop # Control mode for the application (Open or Closed Loop).
-    data_type: boolean
-  - name: temperature_max_threshold # Maximum temperature threshold for the application to generate a Control / Recommendation action.
+  - name: multiplier 
     data_type: number
 
 # ------------------------------------------------------------------------------
@@ -72,7 +68,6 @@ defaults:
   configuration: {} # Default values for application configuration.
 
   parameters: # Default values for application parameters.
-    kelvin_closed_loop: false
-    temperature_max_threshold: 59
+    multiplier: 10
 
   system: {} # Default system settings (CPU/Memory Limits, Ports, Volumes, Environment Variables, etc).
