@@ -5,7 +5,7 @@ from kelvin.application import KelvinApp, filters
 from kelvin.krn import KRNAsset, KRNAssetDataStream
 from kelvin.message import ControlChange, Recommendation, Number
 from kelvin.message.evidences import Image, Markdown
-from kelvin.logs import logging
+from kelvin.logs import logger
 
 async def main() -> None:
     """
