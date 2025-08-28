@@ -8,7 +8,7 @@ type: app
 name: speed-multiplier
 title: Mill Speed Multiplier
 description: This is an example mill speed multiplier for demonstration purposes.
-version: 1.0.6
+version: 1.0.7
 
 # ------------------------------------------------------------------------------
 # Application Capabilities

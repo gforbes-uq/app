@@ -12,16 +12,16 @@ async def main() -> None:
     Start streaming asset data, monitor motor temperature vs. thresholds,
     and issue speed-reduction recommendations when necessary.
     """
-    logging.info(f"Starting")
+    logger.info(f"Starting")
     app = KelvinApp()
-    logging.info(f"KelvinApp() instance created")
+    logger.info(f"KelvinApp() instance created")
     await app.connect()
-    logging.info(f"app connected")
+    logger.info(f"app connected")
 
 
     # Process each incoming asset data message
     async for message in app.stream_filter(filters.is_asset_data_message):
-        logging.info(f"Hello")
+        logger.info(f"Hello")
         asset_id = message.resource.asset
         data_stream = message.resource.data_stream
 
@@ -33,9 +33,9 @@ async def main() -> None:
         multiplier = app.assets[asset_id].parameters.get("multiplier")
 
         new_speed_setpoint = current_mill_speed*multiplier
-        logging.info(f"current_mill_speed: {current_mill_speed}")
-        logging.info(f"multiplier: {multiplier}")
-        logging.info(f"new_speed_setpoint: {new_speed_setpoint}")
+        logger.info(f"current_mill_speed: {current_mill_speed}")
+        logger.info(f"multiplier: {multiplier}")
+        logger.info(f"new_speed_setpoint: {new_speed_setpoint}")
 
         await app.publish(Number(
             resource=KRNAssetDataStream(asset_id, "output"),
