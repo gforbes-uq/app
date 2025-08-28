@@ -12,14 +12,16 @@ async def main() -> None:
     Start streaming asset data, monitor motor temperature vs. thresholds,
     and issue speed-reduction recommendations when necessary.
     """
+    logging.info(f"Starting")
     app = KelvinApp()
+    logging.info(f"KelvinApp() instance created")
     await app.connect()
+    logging.info(f"app connected")
 
-    # Store the most recent motor_speed values per asset
-    latest_motor_speeds: dict[str, float] = {}
 
     # Process each incoming asset data message
     async for message in app.stream_filter(filters.is_asset_data_message):
+        logging.info(f"Hello")
         asset_id = message.resource.asset
         data_stream = message.resource.data_stream
 
